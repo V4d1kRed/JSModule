@@ -1,6 +1,132 @@
 @import './common/_variables';
 @import './common/_reset';
 
-h1 {
-    font-size: 2.6rem;
+.calendar {
+    &__title {
+        font-size: 3.2rem;
+        margin: 1rem 0;
+    }
+    &__body {
+        display: grid;
+        grid-template-columns: 5rem 20rem;
+        overflow: hidden;
+    }
+}
+
+.form {
+    margin-bottom: 1rem;
+    &__legend {
+        font-size: 2.2rem;
+        margin-bottom: 1rem;
+    }
+    &__label {
+        display: flex;
+        align-items: center;
+        column-gap: 1rem;
+        margin-bottom: 1rem;
+    }
+    &__text {
+        font-size: 1.4rem;
+    }
+    &__input {
+        width: 100%;
+        max-width: 20rem;
+        padding: 0.5rem 0;
+        border-bottom: 1px solid $black;
+        &:focus {
+            outline: none;
+        }
+    }
+    &__button {
+        cursor: pointer;
+        font-size: 1.4rem;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 0.5rem 1.5rem;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        border-radius: 0.4rem;
+    }
+}
+
+.time {
+    &__item {
+        height: 9rem;
+        position: relative;
+        &:nth-child(2n + 1) {
+            &::before {
+                content: "";
+                width: 100%;
+                height: 1px;
+                background-color: $black;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 110rem;
+            }
+        }
+    }
+    &__text {
+        font-weight: 200;
+        font-size: 1.6rem;
+        &--small {
+            font-size: 1.2rem;
+        }
+    }
+}
+
+.event {
+    position: relative;
+    padding: 0.5rem;
+    width: 100%;
+    height: 3rem;
+    background-color: $enent-body;
+    border-left: 3px solid $enent-border;
+    transition: $animation;
+    &__title {
+        font-weight: 400;
+        font-size: 1.4rem;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+    &:hover {
+        background-color: khaki;
+        & .control {
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+}
+
+.control {
+    display: flex;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 15;
+    transition: $animation;
+    opacity: 0;
+    visibility: hidden;
+    &__button {
+        cursor: pointer;
+        width: 3rem;
+        height: 3rem;
+        &--edit {
+            background-color: darkcyan;
+            background-image: url('../images/icons/edit.svg');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 2rem;
+        }
+        &--delete {
+            background-color: tomato;
+            background-image: url('../images/icons/trash.svg');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 2rem;
+        }
+    }
 }
