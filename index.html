@@ -20,28 +20,30 @@
                                 <legend class="form__legend">Add new event📅</legend>
                                 <label class="form__label">
                                     <span class="form__text">Start:</span>
-                                    <input class="form__input"
-                                           type="text"
-                                           placeholder="Enter the *number of minutes"
-                                           pattern="^[1-9]\d*$"
+                                    <input class="form__input form__input-start"
+                                           type="time"
+                                           min="08:00"
+                                           max="17:00"
+                                           value="08:00"
                                            required>
                                 </label>
                                 <label class="form__label">
                                     <span class="form__text">Duration:</span>
-                                    <input class="form__input"
-                                           type="text"
-                                           placeholder="Enter the *number of minutes"
-                                           pattern="^[1-9]\d*$"
+                                    <input class="form__input form__input-duration"
+                                           type="number"
+                                           min="0"
+                                           max="540"
+                                           value="0"
                                            required>
                                 </label>
                                 <label class="form__label">
                                     <span class="form__text">Text:</span>
-                                    <input class="form__input"
+                                    <input class="form__input form__input-text"
                                            type="text"
                                            placeholder="Enter some text"
                                            required>
                                 </label>
-                                <button class="form__button">Add</button>
+                                <button class="form__button" type="button">Add</button>
                             </fieldset>
                         </form>
                         <div class="calendar__body">
