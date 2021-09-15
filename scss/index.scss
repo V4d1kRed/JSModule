@@ -15,6 +15,9 @@
 
 .form {
     margin-bottom: 1rem;
+    &__fieldset {
+        border: none;
+    }
     &__legend {
         font-size: 2.2rem;
         margin-bottom: 1rem;
@@ -29,10 +32,11 @@
         font-size: 1.4rem;
     }
     &__input {
-        width: 100%;
-        max-width: 20rem;
-        padding: 0.5rem 0;
-        border-bottom: 1px solid $black;
+        // width: 100%;
+        // max-width: 20rem;
+        padding: 0.5rem;
+        border: 1px solid $black;
+        transition: $animation;
         &:focus {
             outline: none;
         }
@@ -40,7 +44,7 @@
     &__button {
         cursor: pointer;
         font-size: 1.4rem;
-        background-color: #4CAF50;
+        background-color: #616D84;
         color: white;
         border: none;
         padding: 0.5rem 1.5rem;
@@ -48,6 +52,7 @@
         text-decoration: none;
         display: inline-block;
         border-radius: 0.4rem;
+        transition: $animation;
     }
 }
 
@@ -79,6 +84,8 @@
 
 .event {
     position: relative;
+    top: 0;
+    left: 0;
     padding: 0.5rem;
     width: 100%;
     height: 3rem;
@@ -111,6 +118,7 @@
     opacity: 0;
     visibility: hidden;
     &__button {
+        border: none;
         cursor: pointer;
         width: 3rem;
         height: 3rem;
