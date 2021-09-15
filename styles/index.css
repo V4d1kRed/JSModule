@@ -60,8 +60,8 @@ input, button, textarea, select {
 .calendar__body {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 5rem 20rem;
-      grid-template-columns: 5rem 20rem;
+  -ms-grid-columns: 5rem 1fr;
+      grid-template-columns: 5rem 1fr;
   overflow: hidden;
 }
 
@@ -151,8 +151,14 @@ input, button, textarea, select {
   font-size: 1.2rem;
 }
 
-.event {
+.events {
   position: relative;
+}
+
+.event {
+  width: 100%;
+  max-width: 20rem;
+  position: absolute;
   top: 0;
   left: 0;
   padding: 0.5rem;
