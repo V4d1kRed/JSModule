@@ -14,15 +14,15 @@ class Event {
   ];
 
   static eventsArray = [
-    { id: 1, start: 0, duration: 30, title: "Exercise" },
-    { id: 2, start: 25, duration: 15, title: "Travel to work" },
-    { id: 3, start: 30, duration: 30, title: "Plan day" },
-    { id: 4, start: 60, duration: 15, title: "Review yesterday's commits" },
-    { id: 5, start: 100, duration: 15, title: "Code review" },
-    { id: 6, start: 180, duration: 90, title: "Have lunch with John" },
-    { id: 7, start: 360, duration: 30, title: "Skype call" },
-    { id: 8, start: 370, duration: 45, title: "Follow up with designer" },
-    { id: 9, start: 405, duration: 30, title: "Push up branch" }
+    { id: 1, start: 0, duration: 15, title: "Exercise" },
+    { id: 2, start: 25, duration: 30, title: "Travel to work" },
+    // { id: 3, start: 30, duration: 30, title: "Plan day" },
+    // { id: 4, start: 60, duration: 15, title: "Review yesterday's commits" },
+    // { id: 5, start: 100, duration: 15, title: "Code review" },
+    // { id: 6, start: 180, duration: 90, title: "Have lunch with John" },
+    // { id: 7, start: 360, duration: 30, title: "Skype call" },
+    // { id: 8, start: 370, duration: 45, title: "Follow up with designer" },
+    // { id: 9, start: 405, duration: 30, title: "Push up branch" }
   ];
 
   static id = this.eventsArray.length + 1;
@@ -63,12 +63,13 @@ class Event {
       // buttonEdit.setAttribute('class', 'control__button control__button--edit');
       buttonDelete.setAttribute('class', 'control__button control__button--delete');
 
+      div.style.top = `${item.start * 3}px`;
+      div.style.height = item.duration < 10 ? `30px` : `${30 * (item.duration / 10)}px`;
+
       // control.append(buttonEdit, buttonDelete);
       control.append(buttonDelete);
       div.append(control, h4);
       events.append(div);
-
-      div.style.height = item.duration < 10 ? `30px` : `${30 * (item.duration / 10)}px`;
     });
   }
 
@@ -143,7 +144,12 @@ formButton.addEventListener('click', () => {
     setBorderColor(formInputText, '#ff6347');
   }
 
-  if (eventStart >= 0 && eventStart <= 540 && eventDuration >= 0 && eventDuration <= 540 && eventText.length > 0) {
+  if (eventStart >= 0 &&
+      eventStart <= 540 &&
+      eventDuration >= 0 &&
+      eventDuration <= 540 &&
+      eventText.length > 0 &&
+      eventStart + eventDuration < 540) {
     setBackgroundColor(formButton, 'green');
 
     Event.addEvent(eventStart, eventDuration, eventText);
