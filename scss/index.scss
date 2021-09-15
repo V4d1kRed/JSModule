@@ -8,7 +8,7 @@
     }
     &__body {
         display: grid;
-        grid-template-columns: 5rem 20rem;
+        grid-template-columns: 5rem 1fr;
         overflow: hidden;
     }
 }
@@ -32,8 +32,6 @@
         font-size: 1.4rem;
     }
     &__input {
-        // width: 100%;
-        // max-width: 20rem;
         padding: 0.5rem;
         border: 1px solid $black;
         transition: $animation;
@@ -82,8 +80,14 @@
     }
 }
 
-.event {
+.events {
     position: relative;
+}
+
+.event {
+    width: 100%;
+    max-width: 20rem;
+    position: absolute;
     top: 0;
     left: 0;
     padding: 0.5rem;
