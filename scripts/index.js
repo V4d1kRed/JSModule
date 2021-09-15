@@ -43,7 +43,6 @@ class Event {
   }
 
   static showEvents() {
-    console.log(this.eventsArray);
     const events = document.querySelector('.events');
 
     events.textContent = null;
