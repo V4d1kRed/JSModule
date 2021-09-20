@@ -178,10 +178,6 @@ input, button, textarea, select {
      text-overflow: ellipsis;
 }
 
-.event:hover {
-  background-color: khaki;
-}
-
 .event:hover .control {
   opacity: 1;
   visibility: visible;
