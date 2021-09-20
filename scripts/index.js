@@ -15,14 +15,15 @@ class Event {
 
   static eventsArray = [
     { id: 1, start: 0, duration: 15, title: "Exercise" },
+    { id: 12, start: 0, duration: 10, title: "By a new car" }, // DELETE
     { id: 2, start: 25, duration: 30, title: "Travel to work" },
-    // { id: 3, start: 30, duration: 30, title: "Plan day" },
-    // { id: 4, start: 60, duration: 15, title: "Review yesterday's commits" },
-    // { id: 5, start: 100, duration: 15, title: "Code review" },
-    // { id: 6, start: 180, duration: 90, title: "Have lunch with John" },
-    // { id: 7, start: 360, duration: 30, title: "Skype call" },
-    // { id: 8, start: 370, duration: 45, title: "Follow up with designer" },
-    // { id: 9, start: 405, duration: 30, title: "Push up branch" }
+    { id: 3, start: 30, duration: 30, title: "Plan day" },
+    { id: 4, start: 60, duration: 15, title: "Review yesterday's commits" },
+    { id: 5, start: 100, duration: 15, title: "Code review" },
+    { id: 6, start: 180, duration: 90, title: "Have lunch with John" },
+    { id: 7, start: 360, duration: 30, title: "Skype call" },
+    { id: 8, start: 370, duration: 45, title: "Follow up with designer" },
+    { id: 9, start: 405, duration: 30, title: "Push up branch" }
   ];
 
   static id = this.eventsArray.length + 1;
@@ -43,15 +44,23 @@ class Event {
   }
 
   static showEvents() {
-    const events = document.querySelector('.events');
+    const sortEventsArray = [...this.eventsArray].sort((a, b) => {
+      if (a.start === b.start) {
+        return a.duration - b.duration;
+      } else {
+        return a.start - b.start;
+      }
+    });
 
+    const events = document.querySelector('.events');
     events.textContent = null;
 
-    this.eventsArray.forEach(item => {
+    let count = 0;
+
+    sortEventsArray.forEach((item, index, arr) => {
       const div = document.createElement('div');
       const h4 = document.createElement('h4');
       const control = document.createElement('div');
-      // const buttonEdit = document.createElement('button');
       const buttonDelete = document.createElement('button');
 
       h4.textContent = item.title;
@@ -60,13 +69,22 @@ class Event {
       div.setAttribute('data-id', item.id);
       h4.setAttribute('class', 'event__title');
       control.setAttribute('class', 'control');
-      // buttonEdit.setAttribute('class', 'control__button control__button--edit');
       buttonDelete.setAttribute('class', 'control__button control__button--delete');
+
+      if (arr.length > 1) {
+        if (index > 0) {
+          if (item.start < arr[index - 1].start + arr[index - 1].duration) {
+            count++;
+            div.style.left = `${100 * count}%`;
+          } else {
+            count = 0;
+          }
+        }
+      }
 
       div.style.top = `${item.start * 3}px`;
       div.style.height = item.duration < 10 ? `30px` : `${30 * (item.duration / 10)}px`;
 
-      // control.append(buttonEdit, buttonDelete);
       control.append(buttonDelete);
       div.append(control, h4);
       events.append(div);
@@ -93,8 +111,8 @@ class Event {
   }
 }
 
-Event.showEvents();
 Event.showTime();
+Event.showEvents();
 
 const events = document.querySelector('.events');
 
@@ -137,7 +155,7 @@ formButton.addEventListener('click', () => {
   if (eventStart < 0 || eventStart > 540) {
     setBorderColor(formInputStart, '#ff6347');
   }
-  if (eventDuration < 0 || eventDuration > 540) {
+  if (eventDuration <= 0 || eventDuration > 540) {
     setBorderColor(formInputDuration, '#ff6347');
   }
   if (!eventText.length) {
@@ -145,11 +163,11 @@ formButton.addEventListener('click', () => {
   }
 
   if (eventStart >= 0 &&
-      eventStart <= 540 &&
-      eventDuration >= 0 &&
-      eventDuration <= 540 &&
-      eventText.length > 0 &&
-      eventStart + eventDuration < 540) {
+    eventStart <= 540 &&
+    eventDuration > 0 &&
+    eventDuration <= 540 &&
+    eventText.length > 0 &&
+    eventStart + eventDuration <= 540) {
     setBackgroundColor(formButton, 'green');
 
     Event.addEvent(eventStart, eventDuration, eventText);
