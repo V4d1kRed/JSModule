@@ -15,7 +15,6 @@ class Event {
 
   static eventsArray = [
     { id: 1, start: 0, duration: 15, title: "Exercise" },
-    { id: 12, start: 0, duration: 10, title: "By a new car" }, // DELETE
     { id: 2, start: 25, duration: 30, title: "Travel to work" },
     { id: 3, start: 30, duration: 30, title: "Plan day" },
     { id: 4, start: 60, duration: 15, title: "Review yesterday's commits" },
@@ -164,6 +163,7 @@ formButton.addEventListener('click', () => {
 
   if (eventStart >= 0 &&
     eventStart <= 540 &&
+    typeof(eventDuration) === 'number' &&
     eventDuration > 0 &&
     eventDuration <= 540 &&
     eventText.length > 0 &&
