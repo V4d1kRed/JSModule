@@ -1,9 +1,10 @@
 class Event {
-  constructor(start, duration, title) {
+  constructor(start, duration, title, color) {
     this.id = Event.getId();
     this.start = start;
     this.duration = duration;
     this.title = title;
+    this.color = color;
   }
 
   static timeArray = [
@@ -14,15 +15,15 @@ class Event {
   ];
 
   static eventsArray = [
-    { id: 1, start: 0, duration: 15, title: "Exercise" },
-    { id: 2, start: 25, duration: 30, title: "Travel to work" },
-    { id: 3, start: 30, duration: 30, title: "Plan day" },
-    { id: 4, start: 60, duration: 15, title: "Review yesterday's commits" },
-    { id: 5, start: 100, duration: 15, title: "Code review" },
-    { id: 6, start: 180, duration: 90, title: "Have lunch with John" },
-    { id: 7, start: 360, duration: 30, title: "Skype call" },
-    { id: 8, start: 370, duration: 45, title: "Follow up with designer" },
-    { id: 9, start: 405, duration: 30, title: "Push up branch" }
+    { id: 1, start: 0, duration: 15, title: "Exercise", color: {r: 110, g: 158, b: 207} },
+    { id: 2, start: 25, duration: 30, title: "Travel to work", color: {r: 110, g: 158, b: 207} },
+    { id: 3, start: 30, duration: 30, title: "Plan day", color: {r: 110, g: 158, b: 207} },
+    { id: 4, start: 60, duration: 15, title: "Review yesterday's commits", color: {r: 100, g: 158, b: 207} },
+    { id: 5, start: 100, duration: 15, title: "Code review", color: {r: 110, g: 158, b: 207} },
+    { id: 6, start: 180, duration: 90, title: "Have lunch with John", color: {r: 110, g: 158, b: 207} },
+    { id: 7, start: 360, duration: 30, title: "Skype call", color: {r: 110, g: 158, b: 207} },
+    { id: 8, start: 370, duration: 45, title: "Follow up with designer", color: {r: 110, g: 158, b: 207} },
+    { id: 9, start: 405, duration: 30, title: "Push up branch", color: {r: 110, g: 158, b: 207} }
   ];
 
   static id = this.eventsArray.length + 1;
@@ -31,8 +32,8 @@ class Event {
     return this.id++;
   }
 
-  static addEvent(eventStart, eventDuration, eventText) {
-    this.eventsArray.push(new Event(eventStart, eventDuration, eventText));
+  static addEvent(eventStart, eventDuration, eventText, eventColor) {
+    this.eventsArray.push(new Event(eventStart, eventDuration, eventText, eventColor));
     this.showEvents();
   }
 
@@ -81,6 +82,8 @@ class Event {
         }
       }
 
+      div.style.borderColor = `rgb(${item.color.r}, ${item.color.g}, ${item.color.b})`;
+      div.style.backgroundColor = `rgba(${item.color.r}, ${item.color.g}, ${item.color.b}, 0.2)`;
       div.style.top = `${item.start * 3}px`;
       div.style.height = item.duration < 10 ? `30px` : `${30 * (item.duration / 10)}px`;
 
@@ -130,10 +133,21 @@ formButton.addEventListener('click', () => {
   const formInputStart = document.querySelector('.form__input-start');
   const formInputDuration = document.querySelector('.form__input-duration');
   const formInputText = document.querySelector('.form__input-text');
+  const formInputColor = document.querySelector('.form__input-color');
 
   const eventStart = (+formInputStart.value.split(':')[0] * 60 + +formInputStart.value.split(':')[1]) - 480;
   const eventDuration = +formInputDuration.value;
   const eventText = formInputText.value;
+  const eventColor = hex2rgb(formInputColor.value);
+
+  function hex2rgb(color) {
+    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(color);
+    return result ? {
+      r: parseInt(result[1], 16),
+      g: parseInt(result[2], 16),
+      b: parseInt(result[3], 16)
+    } : null;
+  }
 
   function setBackgroundColor(item, color) {
     item.style.backgroundColor = color;
@@ -163,14 +177,14 @@ formButton.addEventListener('click', () => {
 
   if (eventStart >= 0 &&
     eventStart <= 540 &&
-    typeof(eventDuration) === 'number' &&
+    typeof (eventDuration) === 'number' &&
     eventDuration > 0 &&
     eventDuration <= 540 &&
     eventText.length > 0 &&
     eventStart + eventDuration <= 540) {
     setBackgroundColor(formButton, 'green');
 
-    Event.addEvent(eventStart, eventDuration, eventText);
+    Event.addEvent(eventStart, eventDuration, eventText, eventColor);
   } else {
     setBackgroundColor(formButton, '#ff6347');
   }
